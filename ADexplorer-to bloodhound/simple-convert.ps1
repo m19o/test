@@ -17,13 +17,20 @@ if (-not $OutputFile) {
 Write-Host "ADExplorer to BloodHound Simple Converter" -ForegroundColor Green
 Write-Host "=======================================" -ForegroundColor Green
 
-# Resolve the input file path to absolute path
-$InputFile = Resolve-Path $InputFile -ErrorAction SilentlyContinue
-if (-not $InputFile) {
-    Write-Host "Error: Input file does not exist or cannot be resolved: $InputFile" -ForegroundColor Red
+# Validate input file parameter
+if ([string]::IsNullOrWhiteSpace($InputFile)) {
+    Write-Host "Error: Input file parameter cannot be empty or null" -ForegroundColor Red
     exit 1
 }
-$InputFile = $InputFile.Path
+
+# Resolve the input file path to absolute path
+try {
+    $resolvedPath = Resolve-Path $InputFile -ErrorAction Stop
+    $InputFile = $resolvedPath.Path
+} catch {
+    Write-Host "Error: Input file does not exist or cannot be resolved: $InputFile. Error: $($_.Exception.Message)" -ForegroundColor Red
+    exit 1
+}
 
 # Check if input file exists
 if (-not (Test-Path $InputFile)) {
