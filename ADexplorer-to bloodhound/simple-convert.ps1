@@ -17,6 +17,14 @@ if (-not $OutputFile) {
 Write-Host "ADExplorer to BloodHound Simple Converter" -ForegroundColor Green
 Write-Host "=======================================" -ForegroundColor Green
 
+# Resolve the input file path to absolute path
+$InputFile = Resolve-Path $InputFile -ErrorAction SilentlyContinue
+if (-not $InputFile) {
+    Write-Host "Error: Input file does not exist or cannot be resolved: $InputFile" -ForegroundColor Red
+    exit 1
+}
+$InputFile = $InputFile.Path
+
 # Check if input file exists
 if (-not (Test-Path $InputFile)) {
     Write-Host "Error: Input file does not exist: $InputFile" -ForegroundColor Red

@@ -35,6 +35,13 @@ if not exist "%INPUT_FILE%" (
 
 REM Use PowerShell with execution policy bypass
 echo Converting ADExplorer file to BloodHound format...
+echo Current directory: %CD%
+echo Script directory: %~dp0
+echo Input file: %INPUT_FILE%
+echo Output file: %OUTPUT_FILE%
+echo.
+
+REM Use PowerShell with execution policy bypass
 powershell.exe -ExecutionPolicy Bypass -NoProfile -Command "& {. '%~dp0simple-convert.ps1' -InputFile '%INPUT_FILE%' -OutputFile '%OUTPUT_FILE%'}"
 
 if %ERRORLEVEL% EQU 0 (

@@ -521,6 +521,13 @@ Write-Host "=====================================================" -ForegroundCo
 try {
     Write-Host "`nStarting conversion process..." -ForegroundColor Yellow
     
+    # Resolve the input file path to absolute path
+    $InputFile = Resolve-Path $InputFile -ErrorAction SilentlyContinue
+    if (-not $InputFile) {
+        throw "Input file does not exist or cannot be resolved: $InputFile"
+    }
+    $InputFile = $InputFile.Path
+    
     # Validate input file
     if (-not (Test-Path $InputFile)) {
         throw "Input file does not exist: $InputFile"
