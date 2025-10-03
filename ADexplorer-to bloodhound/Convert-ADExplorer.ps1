@@ -12,10 +12,7 @@ param(
     [switch]$IncludeDeleted,
     
     [Parameter(Mandatory = $false)]
-    [string[]]$ObjectTypes = @('User', 'Computer', 'Group', 'Domain', 'GPO', 'OU', 'Container'),
-    
-    [Parameter(Mandatory = $false)]
-    [switch]$Verbose
+    [string[]]$ObjectTypes = @('User', 'Computer', 'Group', 'Domain', 'GPO', 'OU', 'Container')
 )
 
 # Include all required classes and functions directly in this script
