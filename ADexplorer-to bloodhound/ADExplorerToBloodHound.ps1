@@ -296,6 +296,10 @@ try {
     Write-Host "`nCreating BloodHound JSON..." -ForegroundColor Yellow
     $bloodHoundData = Create-BloodHoundData -Header $header
     
+    # Debug: Check if data was created
+    Write-Host "Debug: Created $($bloodHoundData.users.Count) users" -ForegroundColor Gray
+    Write-Host "Debug: Created $($bloodHoundData.computers.Count) computers" -ForegroundColor Gray
+    
     # Convert to JSON and save
     $jsonOutput = $bloodHoundData | ConvertTo-Json -Depth 10
     $jsonOutput | Out-File -FilePath $OutputFile -Encoding UTF8
