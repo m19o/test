@@ -1,8 +1,0 @@
-Windows Registry Editor Version 5.00
-
-; Fix PowerShell Execution Policy for Current User
-; This registry file sets the execution policy to RemoteSigned for the current user
-; Run this file by double-clicking it, then restart PowerShell
-
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell]
-"ExecutionPolicy"="RemoteSigned"
