@@ -1,60 +1,76 @@
 # ADExplorer to BloodHound Converter
 
-Converts ADExplorer .dat files to BloodHound-compatible JSON format.
-
-## Files
-
-- **`ADExplorerToBloodHound.ps1`** - Main PowerShell converter script
-- **`ADExplorerToBloodHound.cmd`** - Windows batch file wrapper
-- **`README.md`** - This file
-
-## Usage
-
-### Method 1: CMD Batch File (Recommended)
-```cmd
-ADExplorerToBloodHound.cmd yourfile.dat output.json
-```
-
-### Method 2: PowerShell Direct
-```powershell
-.\ADExplorerToBloodHound.ps1 -InputFile "yourfile.dat" -OutputFile "output.json"
-```
-
-## What It Does
-
-- Parses ADExplorer .dat file header structure
-- Extracts object and attribute counts from the file
-- Creates BloodHound-compatible JSON with sample data
-- Generates realistic Users, Computers, Groups, Domains, GPOs, OUs, and Containers
-- Produces valid JSON that can be imported into BloodHound
+A PowerShell script that converts ADExplorer `.dat` files to BloodHound-compatible JSON format.
 
 ## Features
 
-- **Header Parsing**: Reads ADExplorer file signature, object counts, and metadata
-- **Sample Data Generation**: Creates realistic AD objects based on file structure
-- **BloodHound Compatibility**: Outputs proper JSON format for BloodHound ingestion
-- **Error Handling**: Graceful handling of file parsing issues
-- **Progress Reporting**: Shows conversion status and results
+- ✅ **Real parsing** - Attempts to parse actual ADExplorer binary format
+- ✅ **Fallback to mock data** - Creates realistic sample data if parsing fails
+- ✅ **BloodHound v6 compatible** - Generates proper JSON format
+- ✅ **Multiple object types** - Users, Computers, Groups, Domains, OUs, Containers
+- ✅ **Progress tracking** - Shows parsing progress and statistics
+- ✅ **Error handling** - Graceful fallback ensures you always get output
 
-## Requirements
+## Files
 
-- PowerShell 5.1+
-- Windows (for .cmd file)
-- Valid ADExplorer .dat file
+- `ADExplorerToBloodHound.ps1` - Main PowerShell script
+- `ADExplorerToBloodHound.cmd` - CMD wrapper for easy execution
+- `README.md` - This documentation
+
+## Usage
+
+### Basic Usage
+```cmd
+.\ADExplorerToBloodHound.cmd your_file.dat
+```
+
+### With Custom Output
+```cmd
+.\ADExplorerToBloodHound.cmd your_file.dat bloodhound.json
+```
+
+### Direct PowerShell
+```powershell
+.\ADExplorerToBloodHound.ps1 -InputFile "your_file.dat" -OutputFile "bloodhound.json"
+```
+
+## How It Works
+
+1. **Parses ADExplorer header** - Reads file metadata and object counts
+2. **Attempts real parsing** - Tries to parse actual binary object data
+3. **Falls back to mock data** - If parsing fails, creates realistic sample data
+4. **Generates BloodHound JSON** - Always produces valid output
 
 ## Output
 
-The converter creates a JSON file with:
-- **Users**: With properties like samAccountName, displayName, email, etc.
-- **Computers**: With OS information and delegation settings
-- **Groups**: With membership and security information
-- **Domains**: Domain objects and trust relationships
-- **GPOs**: Group Policy Objects with settings
-- **OUs**: Organizational Units with hierarchy
-- **Containers**: Generic container objects
+The script generates a JSON file with:
+- **Users** - User accounts with properties like enabled status, last logon, etc.
+- **Computers** - Computer accounts with OS info, delegation settings, etc.
+- **Groups** - Security groups with membership information
+- **Domains** - Domain objects with trust relationships
+- **OUs** - Organizational Units
+- **Containers** - Other AD containers
+
+## Requirements
+
+- Windows PowerShell 5.0+
+- Valid ADExplorer `.dat` file (optional - will create mock data if not valid)
 
 ## Notes
 
-This version creates sample data based on your ADExplorer file structure. The file header is successfully parsed to determine the number of objects, and realistic sample data is generated accordingly.
+- This is a simplified PowerShell implementation
+- For full ADExplorer parsing, consider the official Python tool: https://github.com/c3c/ADExplorerSnapshot.py
+- The script always produces output, even if the input file is not a valid ADExplorer file
+- Mock data is based on the file header information when available
 
-Simple and effective.
+## Troubleshooting
+
+If you encounter issues:
+1. Ensure the file is a valid ADExplorer `.dat` file
+2. Check file permissions
+3. Try with a different ADExplorer file
+4. The script will create mock data if parsing fails
+
+## License
+
+This project is provided as-is for educational and testing purposes.
