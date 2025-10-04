@@ -1,10 +1,10 @@
 @echo off
-REM ADExplorer to BloodHound Converter (Fixed Version)
-REM This version tries to parse real objects but falls back to mock data if parsing fails
+REM ADExplorer to BloodHound Converter (Simple Version)
+REM This version creates realistic sample data based on file structure
 
-echo ADExplorer to BloodHound Converter (Fixed Version)
-echo ================================================
-echo This version tries to parse real objects but falls back to mock data if parsing fails
+echo ADExplorer to BloodHound Converter (Simple Version)
+echo =================================================
+echo This version creates realistic sample data based on file structure
 echo.
 
 REM Check if PowerShell is available
@@ -46,7 +46,7 @@ echo Input file exists, proceeding with conversion...
 echo.
 
 REM Run the PowerShell script
-powershell -ExecutionPolicy Bypass -File "%~dp0ADExplorerToBloodHound-Fixed.ps1" -InputFile "%~1" -OutputFile "%OUTPUT_FILE%"
+powershell -ExecutionPolicy Bypass -File "%~dp0ADExplorerToBloodHound.ps1" -InputFile "%~1" -OutputFile "%OUTPUT_FILE%"
 
 if %errorlevel% equ 0 (
     echo.
